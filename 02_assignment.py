@@ -28,6 +28,7 @@ def exercise01():
 
     # ------ Place code below here \/ \/ \/ ------
 
+    animals = ["cat", "dog", "coruching tiger", "hidden dragon", "manta ray"]
 
     # ------ Place code above here /\ /\ /\ ------
 
@@ -39,6 +40,10 @@ def exercise02():
 
     # ------ Place code below here \/ \/ \/ ------
 
+    animals = ["cat", "dog", "coruching tiger", "hidden dragon", "manta ray"]
+    len_animals = len(animals)
+    for i in range(len_animals):
+        print(animals[i])
 
     # ------ Place code above here /\ /\ /\ ------
 
@@ -55,6 +60,8 @@ def exercise03():
 
     # ------ Place code below here \/ \/ \/ ------
 
+    countdown.sort(reverse=True)
+    the_fifth_element = countdown[4]
 
     # ------ Place code above here /\ /\ /\ ------
 
@@ -78,7 +85,22 @@ def exercise04(more_temperatures, iot_sensor_points, a, b, c, d, e):
 
     # ------ Place code below here \/ \/ \/ ------
 
-
+    temperatures.extend(more_temperatures)
+    temperatures.extend(iot_sensor_points.values())
+    temperatures.append(a)
+    temperatures.append(b)
+    temperatures.append(c)
+    temperatures.append(d)
+    temperatures.append(e)
+    temperatures.sort(reverse=True)
+    
+    len_temp = len(temperatures)
+    for i in range(4,(len_temp),5):
+        samples.append(temperatures[i])
+    
+    import copy
+    copy_of_samples = copy.copy(samples)
+    samples.sort()
 
     # ------ Place code above here /\ /\ /\ ------
 
@@ -89,17 +111,24 @@ def exercise05(n):
     # This function will find n factorial using recursion (calling itself) and return the solution. For example exercise05(5) will return 120. No Python functions are to be used.
 
     # ------ Place code below here \/ \/ \/ ------
-
-    pass # Remove this line
+    if n == 0:
+        return 1
+    else:
+        return n * exercise05(n-1)
+    print(exercise05(n))
 
     # ------ Place code above here /\ /\ /\ ------
 
 
 def exercise06(n):
-     # This function will receive an arbitrary list of numbers of arbitrary size and find the average of those numbers. The size of the list may vary. Find the method that requires the  least amount of code. Return back the length, sum of list and average of list
+    # This function will receive an arbitrary list of numbers of arbitrary size and find the average of those numbers. The size of the list may vary. Find the method that requires the  least amount of code. Return back the length, sum of list and average of list
 
     # ------ Place code below here \/ \/ \/ ------
-
+    
+    list_num = list(n)
+    length_n = len(list_num)
+    sum_n = sum(list_num)
+    average_n = np.mean(list_num)
 
     # ------ Place code above here /\ /\ /\ ------
     return length_n, sum_n, average_n
@@ -109,7 +138,17 @@ def exercise07(n):
     # This function looks for duplicates in list n. If there is a duplicate False is returned. If there are no duplicates True is returned.
 
     # ------ Place code below here \/ \/ \/ ------
-
+    nn = list(n)
+    d = dict() 
+    for i in nn: 
+        if i not in d: 
+            d[i] = 1 
+        else: 
+            d[i] += 1 
+    if 2 in d.values():
+        return False
+    else:
+        return True
 
     # ------ Place code above here /\ /\ /\ ------
 
@@ -125,9 +164,45 @@ def exercise07(n):
 
 # ------ Place code below here \/ \/ \/ ------
 
-def display_menu():
-    pass
+def display_menu(menu):
+    if not isinstance(menu, tuple):
+        return -1, len(menu)
+    else:
+        print('menu is a tuple')
+    print(len(menu))
+    nbr = 0
+    new_menu = dict()
+    for i in menu:
+        nbr += 1
+        print(str(nbr) +' ' + i)
+        new_menu[nbr] = i
+    print('0 EXIT')
+    #new_menu.update({0: 'EXIT'})
+    menu_sel = 99
+    menu_sel_last = 999
+    while menu_sel != 0:
+        try:
+            menu_sel = int(input('Select a menu item by entering a number and hitting Enter:\n'))
+        except ValueError:
+            print('Number not valid (not an integer), please retry:\n')
+            continue
+        else:
+            if menu_sel not in [1,2,3,4,0]:
+                print('Number not valid (not in the menu), please retry\n')
+                menu_sel_last = menu_sel
+                continue
+            else:
+                if menu_sel == 0:
+                    print(menu_sel_last)
+                    print(len(new_menu))
+                    return menu_sel_last, len(new_menu)
+                else:
+                    menu_sel_last = menu_sel
+                    print(new_menu)
+    
+   
 
+   
 # ------ Place code above here /\ /\ /\ ------
 
 def exercise09():
@@ -139,24 +214,37 @@ def exercise09():
     print(str(dog_media.content))
     
     # ------ Place code below here \/ \/ \/ ------
+    dogs_raw = ('https://thehappypuppysite.com/wp-content/uploads/2016/12/beagle.jpg http://static.businessinsider.com/image/5484d9d1eab8ea3017b17e29/image.jpg https://peopledotcom.files.wordpress.com/2017/02/dog-in-wood.jpg https://www.desibucket.com/wp-content/uploads/2016/06/A-Dog-AML0002.jpg https://tailandfur.com/wp-content/uploads/2016/04/Cute-pictures-of-saluki-dogs-with-puppies-13.jpg https://www.sciencedaily.com/images/2017/10/171019100944_1_900x600.jpg https://blogs.psychcentral.com/life-goals/files/2014/09/cute-dog-pup.jpg https://upload.wikimedia.org/wikipedia/commons/7/7a/Smiling_Dog_(2594247316).jpg http://weknowyourdreams.com/images/dog/dog-12.jpg https://i.pinimg.com/564x/d3/fa/19/d3fa190b77b62be876ca670f1a489fe3.jpg')
+    dogs = dogs_raw.split()
+    dogs.append(str(dog_media.content))
     
-
-
     # ------ Place code above here /\ /\ /\ ------
 
     return dogs
 
 def exercise10(sentence):
-
+    
     # Exercise10 receives an arbitrary string. Return the sentence backwards with the cases inverted and spaces an underscore _, i.e. HelLo returns OlLEh
-    reversed = ''
-
+    
+    rever_sed = list()
+    
     # ------ Place code below here \/ \/ \/ ------
     
-
-
+    j = (len(sentence) - 1)
+    sen = list(sentence)
+    while j >= 0: 
+        if sen[j] == ' ':
+            rever_sed.append('_')
+        else:
+            if sen[j].islower():
+                rever_sed.append(sen[j].upper())
+            else:
+                rever_sed.append(sen[j].lower())    
+        j = j-1
+    rever_sed_final = "".join(rever_sed)
     # ------ Place code above here /\ /\ /\ ------
-    return reversed
+    
+    return rever_sed_final
 
 
 class TestAssignment2(unittest.TestCase):
